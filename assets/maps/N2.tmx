@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="40" height="20" tilewidth="70" tileheight="70">
+ <tileset firstgid="1" name="Platformer" tilewidth="70" tileheight="70" spacing="2">
+  <image source="platformer.png" width="914" height="936"/>
+ </tileset>
+ <layer name="Calque de Tile 1" width="40" height="20" opacity="0.7">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFgw04DrQD8IASIM6A4sEGQG6biYRjBtY5KADdbYPJjchuQwaDwY243AYDA+1G5LgEgRYC8vQG6PbPISBPDGhkgMQLF8WuQ7U/AwsmN/yoFebY8iwuPOo++oHB7D5FBkz3gcRA6ZlzQFyE6g5RBlT3IYvNYMDtRlsquiMRjW+ExW0gXIJFDORGbGUFIQyqI9LRcAkJ+tHdQQusg4Zpbd9AYwAmJnYA
+  </data>
+ </layer>
+ <layer name="Calque de Tile 2" width="40" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20LL6AAAAA+BgyAAAE=
+  </data>
+ </layer>
+</map>

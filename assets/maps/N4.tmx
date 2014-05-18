@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="35" tilewidth="70" tileheight="70">
+ <tileset firstgid="1" name="Platformer" tilewidth="70" tileheight="70" spacing="2">
+  <image source="platformer.png" width="914" height="936"/>
+ </tileset>
+ <tileset firstgid="157" name="ice" tilewidth="70" tileheight="70">
+  <image source="ice.png" width="980" height="490"/>
+ </tileset>
+ <tileset firstgid="255" name="candy" tilewidth="70" tileheight="70">
+  <image source="candy.png" width="980" height="490"/>
+ </tileset>
+ <tileset firstgid="353" name="various" tilewidth="70" tileheight="70">
+  <image source="various.png" width="980" height="490"/>
+ </tileset>
+ <layer name="Calque de Tile 1" width="50" height="35" opacity="0.74">
+  <data encoding="base64" compression="zlib">
+   eJzt1tEJgDAMhOEs5AAO4BYO4AAu47b6KBJbE4Rey//BvbXqkSI1A4BvlitzIlPiXd5zAPQj+78AgF5shawNvyvqqORut3Lvlt0jPWprvT2qoj3eZqhyZv+YoZJsjydvbiozAwBAmdrdIGukHqPkBBjnV7Q=
+  </data>
+ </layer>
+ <layer name="Calque de Tile 2" width="50" height="35" opacity="0.68">
+  <data encoding="base64" compression="zlib">
+   eJztz7ERABAUREE6l2pCLUoTizHfsDvz8ruUYtW8p2g9z7ULNq3y4Q4vfADOKNEDAAAAAOAzA27tD7U=
+  </data>
+ </layer>
+</map>
