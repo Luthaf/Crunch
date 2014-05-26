@@ -19,6 +19,7 @@ Main file for Crunch game
 -- Libraries
 sti = require("libs/sti")
 gamestate = require("libs/hump/gamestate")
+Collider = require("libs/HardonCollider")
 require("libs/utils")
 
 -- Creating gamestates
