@@ -3,14 +3,13 @@ SRC_DIR=src
 BUILD_DIR=__build__
 
 # Options
-TERRAINS=Country
-
+_TERRAINS_=Country Objects
+TERRAINS=$(foreach terr, $(_TERRAINS_), $(terr).png)
 SET_GEOMETRY='64x64>+2+2'
 
 # Targets
-TERR_DIRS=$(foreach terr, $(TERRAINS), $(SRC_DIR)/$(terr))
-TERR_BUILD_DIRS=$(foreach terr, $(TERRAINS), $(BUILD_DIR)/$(terr))
-SVG=$(wildcard $(TERR_DIRS)/*.svg)
+TERR_BUILD_DIRS=$(foreach terr, $(_TERRAINS_), $(BUILD_DIR)/$(terr))
+SVG=$(foreach terr, $(_TERRAINS_), $(wildcard $(SRC_DIR)/$(terr)/*.svg))
 
 PNG=$(addprefix $(BUILD_DIR)/, $(SVG:$(SRC_DIR)/%.svg=%.png))
 
@@ -23,7 +22,9 @@ MONTAGE=montage
 ###===================================================================###
 
 .PHONY: all clean
-all: $(TERRAINS).png $(PNG)
+all:$(TERRAINS)
+	
+.PRECIOUS:$(PNG)
 
 $(BUILD_DIR)/%.png: $(SRC_DIR)/%.svg
 	@echo "Building PNG file: " $@
@@ -32,7 +33,7 @@ $(BUILD_DIR)/%.png: $(SRC_DIR)/%.svg
 
 %.png: $(PNG)
 	@echo "Creating tileset: " $@
-	@$(MONTAGE) $^ -geometry $(SET_GEOMETRY) -background none $@
+	@$(MONTAGE) $(BUILD_DIR)/$*/*.png -geometry $(SET_GEOMETRY) -background none $@
 
 clean:
-	@rm -rf $(BUILD_DIR) $(TERRAINS).png
+	@rm -rf $(BUILD_DIR) $(TERRAINS)
