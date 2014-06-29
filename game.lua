@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Main game state.
 ]]
 
+
 local map, collision
 local tile_size = 70
 local g = 800 -- gravity

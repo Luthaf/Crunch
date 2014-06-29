@@ -13,30 +13,17 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Main file for Crunch game
+Credits screen.
 ]]
 
--- Libraries
-sti = require("libs/sti")
-gamestate = require("libs/hump/gamestate")
-Collider = require("libs/HardonCollider")
-require("libs/utils")
-gui = require "libs/Quickie"
-
--- Creating gamestates
-menu = {}
-game = {}
-levels = {}
-credits = {}
-options = {}
-require("menu")
-require("game")
-require("levels")
-require("credits")
-require("options")
+function credits:update(dt)	
+	if gui.Button ({text = "Return to main menu", pos = {300, 200}, size = {200, 50}}) 
+			then gamestate.switch(menu)	
+	end
+end
 
 
-function love.load()
-    gamestate.registerEvents()
-    gamestate.switch(menu)
+function credits:draw()
+	love.graphics.print("Credits", 300, 50)
+	gui.core.draw()	
 end
