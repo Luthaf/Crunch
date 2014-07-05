@@ -17,83 +17,146 @@ Main game state.
 ]]
 
 
-local map, collision
+local map
+
+--[[ ========== Game constants ========== ]]
 local tile_size = 70
-local g = 800 -- gravity
-local X, Y -- player position
-local VX, VY -- player speed
+
+local g = 800       -- gravity
+local X = 0         -- player position
+local Y = 0
+local VY = 0        -- player speed
 local MAX_VY = 750
+local MIN_VY = 15
 local MAX_VX = 200
-X, Y = 0, 0
-VX, VY = 0,0
 
-local mario, mario_img
+local epsilon_y = 0.0001
 
-function collide(dt, shape_one, shape_two, dx, dy)
-    if shape_one == mario then
-        if dx ~= 0 then
-            VX = 0
-            X = X + dx
-        end
-        if dy ~= 0 then
-            VY = 0
-            Y = Y + dy
-        end
-    elseif shape_two == mario then
-        if dx ~= 0 then
-            VX = 0
-            X = X - dx
-        end
-        if dy ~= 0 then
-            VY = 0
-            Y = Y - dy
-        end
-    end
-end
+
+-- Various movement constants
+local LEFT = -1
+local RIGHT = 1
+local NONE = 0
+local YES = 1
+
+-- Player
+local crunch = {}
+local crunch_img
+
+--[[ =================================== ]]
+
 
 function game:enter(current, map_name)
     map = sti.new("assets/maps/" .. map_name)
-    mario_img = love.graphics.newImage("mario.png")
-    collision = map.layers[1]
+    crunch_img = love.graphics.newImage("mario.png")
+    local collision = map.layers[1]
     HC = Collider(tile_size, collide) -- collide, stop_collide0
     local tile
     for j, _ in pairs(collision.data) do
         for i, _ in pairs(collision.data[j]) do
             tile = HC:addRectangle((i-1)*tile_size, (j-1)*tile_size, tile_size, tile_size)
+            HC:setPassive(tile)
             HC:addToGroup("platform", tile)
         end
     end
-    mario = HC:addRectangle(X, Y, 70, 70)
+    crunch["shape"] = HC:addRectangle(X, Y, 50, 70)
+    crunch["move"] = {}
+    crunch.move["x"] = NONE
+    crunch.move["y"] = NONE
 end
+
 
 function game:draw()
     map:draw()
-    love.graphics.draw(mario_img, X, Y)
+
+    crunch.shape:moveTo(X + tile_size/2, Y + tile_size/2)
+    love.graphics.draw(crunch_img, X, Y)
 end
 
+
 function game:update(dt)
-    mario:moveTo(X + tile_size/2, Y + tile_size/2)
     HC:update(dt)
-    X = X + VX*dt
-    Y = Y + VY*dt
-    VY = VY + g*dt
-    if VY > MAX_VY then VY = MAX_VY end
-    if VX > MAX_VX then VX = MAX_VX end
+
+    if love.keyboard.isDown('left') then
+        crunch.move.x = LEFT
+    elseif love.keyboard.isDown('right') then
+        crunch.move.x = RIGHT
+    else
+        crunch.move.x = NONE
+    end
+
+    if crunch.move.y ~= NONE then
+        if not collides(crunch.shape) then
+            VY = VY + g*dt  -- gravity
+        end
+        if VY > MAX_VY then -- Maximum falling speed
+            VY = MAX_VY
+        end
+    elseif is_floating(crunch.shape) then
+        crunch.move.y = YES
+    end
+
+    X = X + crunch.move.x * MAX_VX * dt
+    Y = Y + VY * dt
 end
+
 
 function game:keypressed(key, code)
     if key == 'escape' then
         gamestate.switch(menu)
-    elseif key == 'f' then
-        VY = VY - 300
-    elseif key == 'left' then
-        VX = VX - 100
-    elseif key == 'right' then
-        VX = VX + 100
+    elseif key == 'up' and crunch.move.y == NONE then
+        VY = - MAX_VY
+        crunch.move.y = YES
    end
 end
 
 
 function game:leave()
     HC:clear()
+end
+
+
+function collide(dt, shape_one, shape_two, dx, dy)
+    if shape_one == crunch.shape then
+        if dx ~= 0 then
+            X = X + dx
+        end
+        if dy ~= 0 and math.abs(dy) > 1 then
+            VY = 0
+            Y = Y + dy/2
+            crunch.move.y = NONE
+        end
+    elseif shape_two == crunch.shape then
+        if dx ~= 0 then
+            X = X - dx
+        end
+        if dy ~= 0 and math.abs(dy) > 1 then
+            print(dy)
+            VY = 0
+            Y = Y - dy/4
+            crunch.move.y = NONE
+        end
+    end
+end
+
+
+function is_floating(shape)
+    local collide, dx, dy
+    for _, other in pairs(shape:neighbors()) do
+        collide, dx, dy = shape:collidesWith(other)
+        if collide and math.abs(dy) > 0.5 then  -- math.abs(dy) > epsilon ?
+            return false
+        end
+    end
+    return true
+end
+
+function collides(shape)
+    local collide, dx, dy
+    for _, other in pairs(shape:neighbors()) do
+        if shape:collidesWith(other) then
+            return true
+        end
+    end
+    return false
 end
