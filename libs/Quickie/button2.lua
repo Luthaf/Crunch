@@ -23,6 +23,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ]]--
+
 local BASE = (...):match("(.-)[^%.]+$")
 local core     = require(BASE .. 'core')
 local group    = require(BASE .. 'group')
@@ -69,11 +70,9 @@ return function(w)
 
 	-- core.registerDraw(id, drawfunction, drawfunction-arguments...)
 	-- shows widget when core.draw() is called.
-	core.registerDraw(id, w.draw or core.style.Button,
+	core.registerDraw(id, w.draw or core.style.Button2,
 		w.text, pos[1],pos[2], size[1],size[2])
 
 	return mouse.releasedOn(id) or keyboard.pressedOn(id, 'return')
 end
-
-
 

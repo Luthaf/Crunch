@@ -33,6 +33,7 @@ return {
 	mouse    = require(BASE .. 'mouse'),
 	keyboard = require(BASE .. 'keyboard'),
 	Button   = require(BASE .. 'button'),
+	Button2   = require(BASE .. 'button2'),
 	Slider   = require(BASE .. 'slider'),
 	Slider2D = require(BASE .. 'slider2d'),
 	Label    = require(BASE .. 'label'),

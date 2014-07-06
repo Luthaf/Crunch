@@ -39,4 +39,5 @@ require("options")
 function love.load()
     gamestate.registerEvents()
     gamestate.switch(menu)
+	button1 = love.graphics.newImage("Images/Button1.png")
 end

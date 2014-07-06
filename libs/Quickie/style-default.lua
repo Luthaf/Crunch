@@ -48,7 +48,6 @@ gradient:set(200,255)
 local function box(x,y,w,h, bg, border, flip)
 	love.graphics.setLineWidth(1)
 	love.graphics.setLineStyle('rough')
-
 	love.graphics.setColor(bg)
 	local sy = flip and -h/2 or h/2
 	love.graphics.draw(gradient.img, x,y+h/2, 0,w,sy, 0,1)
@@ -56,10 +55,30 @@ local function box(x,y,w,h, bg, border, flip)
 	love.graphics.rectangle('line', x,y,w,h)
 end
 
+local function box2(x,y,w,h, bg, border, flip)
+	--love.graphics.setLineWidth(1)
+	--love.graphics.setLineStyle('rough')
+	love.graphics.setColor(bg)
+	local sy = flip and -h/2 or h/2
+	love.graphics.draw(gradient.img, x,y+h/2, 0,w,sy, 0,1)
+	love.graphics.setColor(border)
+	--love.graphics.rectangle('line', x,y,w,h)
+end
+
 -- load default font
 if not love.graphics.getFont() then
 	love.graphics.setFont(love.graphics.newFont(12))
 end
+
+local function Button2(state, title, x,y,w,h)
+	local c = color[state]
+	box(x,y,w,h, c.bg, c.border, state == 'active')
+	local f = assert(love.graphics.getFont())
+	x,y = x + (w-f:getWidth(title))/2, y + (h-f:getHeight(title))/2
+	love.graphics.setColor(c.fg)
+	love.graphics.print(title, x,y)
+end
+
 
 local function Button(state, title, x,y,w,h)
 	local c = color[state]
