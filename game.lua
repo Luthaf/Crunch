@@ -20,7 +20,7 @@ Main game state.
 local map
 
 --[[ ========== Game constants ========== ]]
-local tile_size = 70
+local tile_size = 70.0
 
 local g = 800       -- gravity
 local X = 0         -- player position
@@ -63,10 +63,28 @@ function game:enter(current, map_name)
     crunch["move"] = {}
     crunch.move["x"] = NONE
     crunch.move["y"] = NONE
+
 end
 
 
 function game:draw()
+
+    local SCROLLING_OFFSET = 300
+    local width = love.graphics.getWidth()
+    local MAX_SCROLLING = (map.width * tile_size) - width + SCROLLING_OFFSET
+    -- local height = love.graphics.getHeight()
+    local translateX = - X + SCROLLING_OFFSET
+    if X < SCROLLING_OFFSET then
+        translateX = 0
+    elseif X > MAX_SCROLLING then
+        translateX = - MAX_SCROLLING + SCROLLING_OFFSET
+    end
+
+    love.graphics.translate(translateX, 0)
+
+    -- only for very big maps, to save some computation
+    -- map:setDrawRange(translateX, 0, width, height)
+
     map:draw()
 
     crunch.shape:moveTo(X + tile_size/2, Y + tile_size/2)
@@ -107,7 +125,7 @@ function game:keypressed(key, code)
     elseif key == 'up' and crunch.move.y == NONE then
         VY = - MAX_VY
         crunch.move.y = YES
-   end
+    end
 end
 
 
