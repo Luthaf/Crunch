@@ -48,7 +48,7 @@ local crunch_img
 
 function game:enter(current, map_name)
     map = sti.new("assets/maps/" .. map_name)
-    crunch_img = love.graphics.newImage("mario.png")
+    crunch_img = love.graphics.newImage("crunch.png")
     local collision = map.layers[1]
     HC = Collider(tile_size, collide) -- collide, stop_collide0
     local tile

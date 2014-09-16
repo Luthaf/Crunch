@@ -22,7 +22,7 @@ end
 	
 	
 function menu:update(dt)	
-	if gui.Button2({text = "Levels", pos = {300, 200}, size = {200, 50}}) 
+	if gui.Button({text = "Levels", pos = {300, 200}, size = {200, 50}}) 
 			then gamestate.switch(levels)
 	elseif gui.Button({text = "Credits", pos = {300, 300}, size = {200, 50}}) 
 			then gamestate.switch(credits)

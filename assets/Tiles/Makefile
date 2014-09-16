@@ -5,7 +5,7 @@ BUILD_DIR=__build__
 # Options
 _TERRAINS_=Country Objects
 TERRAINS=$(foreach terr, $(_TERRAINS_), $(terr).png)
-SET_GEOMETRY='64x64>+2+2'
+SET_GEOMETRY='64x64>+0+0'
 
 # Targets
 TERR_BUILD_DIRS=$(foreach terr, $(_TERRAINS_), $(BUILD_DIR)/$(terr))
