@@ -131,6 +131,10 @@ end
 
 function game:leave()
     HC:clear()
+    map = nil
+    X = 0
+    Y = 0
+    VY = 0
 end
 
 
