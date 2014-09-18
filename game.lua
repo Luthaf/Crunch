@@ -57,7 +57,7 @@ function game:enter(current, map_name)
     CRUNCH_W = crunch_img:getWidth()
 
     local collision = map.layers[1]
-    HC = Collider(tile_size, collide) -- collide, stop_collide0
+    HC = Collider(tile_size, game.crunch_collide)
     local tile
     for j, _ in pairs(collision.data) do
         for i, _ in pairs(collision.data[j]) do
@@ -117,13 +117,13 @@ function game:update(dt)
 
     -- Get vertical movement
     if crunch.move.y ~= NONE then
-        if not collides(crunch.shape) then
+        if not game.collides(crunch.shape) then
             VY = VY + g*dt  -- gravity
         end
         if VY > MAX_VY then -- Maximum falling speed
             VY = MAX_VY
         end
-    elseif is_floating(crunch.shape) then
+    elseif game.is_floating(crunch.shape) then
         crunch.move.y = YES
     end
 
@@ -151,7 +151,7 @@ function game:leave()
 end
 
 
-function collide(dt, shape_one, shape_two, dx, dy)
+function game.crunch_collide(dt, shape_one, shape_two, dx, dy)
     if shape_one == crunch.shape then
         if dx ~= 0 then
             X = X + dx
@@ -175,7 +175,7 @@ function collide(dt, shape_one, shape_two, dx, dy)
 end
 
 
-function is_floating(shape)
+function game.is_floating(shape)
     local collide, dx, dy
     for _, other in pairs(shape:neighbors()) do
         collide, dx, dy = shape:collidesWith(other)
@@ -186,7 +186,7 @@ function is_floating(shape)
     return true
 end
 
-function collides(shape)
+function game.collides(shape)
     local collide, dx, dy
     for _, other in pairs(shape:neighbors()) do
         if shape:collidesWith(other) then
