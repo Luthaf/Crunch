@@ -42,6 +42,7 @@ local YES = 1
 -- Player
 local crunch = {}
 local crunch_img
+local CRUNCH_H, CRUNCH_W
 
 -- Map constants
 local MAP_WIDTH, MAP_HEIGHT
@@ -52,6 +53,9 @@ local MAP_WIDTH, MAP_HEIGHT
 function game:enter(current, map_name)
     map = sti.new("assets/maps/" .. map_name)
     crunch_img = love.graphics.newImage("crunch.png")
+    CRUNCH_H = crunch_img:getHeight()
+    CRUNCH_W = crunch_img:getWidth()
+
     local collision = map.layers[1]
     HC = Collider(tile_size, collide) -- collide, stop_collide0
     local tile
@@ -62,7 +66,8 @@ function game:enter(current, map_name)
             HC:addToGroup("platform", tile)
         end
     end
-    crunch["shape"] = HC:addRectangle(X, Y, 50, 70)
+
+    crunch["shape"] = HC:addRectangle(X, Y, CRUNCH_W, CRUNCH_H)
     crunch["move"] = {}
     crunch.move["x"] = NONE
     crunch.move["y"] = NONE
@@ -91,7 +96,9 @@ function game:draw()
 
     map:draw()
 
-    crunch.shape:moveTo(X + tile_size/2, Y + tile_size/2)
+    crunch.shape:moveTo(X + CRUNCH_W/2, Y + CRUNCH_H/2)
+    -- crunch.shape:draw('fill')
+
     love.graphics.draw(crunch_img, X, Y)
 end
 
