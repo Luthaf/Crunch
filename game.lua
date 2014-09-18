@@ -43,6 +43,9 @@ local YES = 1
 local crunch = {}
 local crunch_img
 
+-- Map constants
+local MAP_WIDTH, MAP_HEIGHT
+
 --[[ =================================== ]]
 
 
@@ -63,7 +66,8 @@ function game:enter(current, map_name)
     crunch["move"] = {}
     crunch.move["x"] = NONE
     crunch.move["y"] = NONE
-
+    MAP_WIDTH = map.width * tile_size
+    MAP_HEIGHT = map.height * tile_size
 end
 
 
@@ -71,7 +75,7 @@ function game:draw()
 
     local SCROLLING_OFFSET = 300
     local width = love.graphics.getWidth()
-    local MAX_SCROLLING = (map.width * tile_size) - width + SCROLLING_OFFSET
+    local MAX_SCROLLING = MAP_WIDTH - width + SCROLLING_OFFSET
     -- local height = love.graphics.getHeight()
     local translateX = - X + SCROLLING_OFFSET
     if X < SCROLLING_OFFSET then
@@ -95,14 +99,16 @@ end
 function game:update(dt)
     HC:update(dt)
 
-    if love.keyboard.isDown('left') then
+    -- Get horizontal movement
+    if love.keyboard.isDown('left') and X >= 0 then
         crunch.move.x = LEFT
-    elseif love.keyboard.isDown('right') then
+    elseif love.keyboard.isDown('right') and X <= (MAP_WIDTH-tile_size) then
         crunch.move.x = RIGHT
     else
         crunch.move.x = NONE
     end
 
+    -- Get vertical movement
     if crunch.move.y ~= NONE then
         if not collides(crunch.shape) then
             VY = VY + g*dt  -- gravity
