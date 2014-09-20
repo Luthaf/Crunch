@@ -17,7 +17,7 @@ Menu state.
 ]]
 
 function menu:enter()
-	button1 = love.graphics.newImage("Images/Button1.png")
+	
 end
 	
 	
@@ -36,10 +36,7 @@ end
  
 function menu:draw()
 	love.graphics.print("Funky CRUNCH title", 300, 50)
-	love.graphics.draw(button1, 300, 300)
 	gui.core.draw()	
-	
-	
 end
 
 
