@@ -56,7 +56,7 @@ function game:enter(current, map_name)
     CRUNCH_H = crunch_img:getHeight()
     CRUNCH_W = crunch_img:getWidth()
 
-    local collision = map.layers[1]
+    local collision = map.layers["static_map"]
     HC = Collider(tile_size, game.crunch_collide)
     local tile
     for j, _ in pairs(collision.data) do

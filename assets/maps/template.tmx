@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="tree" tilewidth="206" tileheight="400">
+  <image source="../backgrounds/tree.png" width="206" height="400"/>
+ </tileset>
+ <tileset firstgid="2" name="Country" tilewidth="64" tileheight="64">
+  <image source="../tiles/Country.png" width="384" height="256"/>
+ </tileset>
+ <tileset firstgid="26" name="crunch" tilewidth="57" tileheight="100">
+  <image source="../../crunch.png" width="57" height="100"/>
+ </tileset>
+ <imagelayer name="background">
+  <image source="../backgrounds/earth.jpg"/>
+ </imagelayer>
+ <layer name="middleground" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjAIIYCRTjhrmj4KhBwAMVAAE
+  </data>
+ </layer>
+ <layer name="static_map" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztkc0KgCAQhKWLP5eSOtT7v2gruDAMW2RYJxcGRXe+HdS5UaP+r1mUO7Imke/EK5woSg2eTbSADpCvauFpBvXuoDf5vuah8Byr/JO+T4b9esGz+Bn85c9Dlb6v5WdOonP2BVgDzbA4fIe8SPN5lpUD+3U2czgr9ibj/i4DzsW+J54T1R8GIQ==
+  </data>
+ </layer>
+ <layer name="dynamic_map" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApIBwAGQAAB
+  </data>
+ </layer>
+ <objectgroup name="objects">
+  <object gid="26" x="12" y="959.333"/>
+ </objectgroup>
+</map>
