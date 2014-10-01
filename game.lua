@@ -80,16 +80,25 @@ function game:draw()
 
     local SCROLLING_OFFSET = 300
     local width = love.graphics.getWidth()
-    local MAX_SCROLLING = MAP_WIDTH - width + SCROLLING_OFFSET
-    -- local height = love.graphics.getHeight()
+    local MAX_SCROLLING_X = MAP_WIDTH - width + SCROLLING_OFFSET
+    local height = love.graphics.getHeight()
+    local MAX_SCROLLING_Y = MAP_HEIGHT - height + SCROLLING_OFFSET
     local translateX = - X + SCROLLING_OFFSET
+    local translateY = - Y + SCROLLING_OFFSET
+
     if X < SCROLLING_OFFSET then
         translateX = 0
-    elseif X > MAX_SCROLLING then
-        translateX = - MAX_SCROLLING + SCROLLING_OFFSET
+    elseif X > MAX_SCROLLING_X then
+        translateX = - MAX_SCROLLING_X + SCROLLING_OFFSET
     end
 
-    love.graphics.translate(translateX, 0)
+    if Y < SCROLLING_OFFSET then
+        translateY = 0
+    elseif Y > MAX_SCROLLING_Y then
+        translateY = - MAX_SCROLLING_Y + SCROLLING_OFFSET
+    end
+
+    love.graphics.translate(translateX, translateY)
 
     -- only for very big maps, to save some computation
     -- map:setDrawRange(translateX, 0, width, height)
