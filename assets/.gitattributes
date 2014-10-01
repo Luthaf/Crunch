@@ -1,0 +1,5 @@
+tmp export-ignore
+maps/*.tmx export-ignore
+tiles/src export-ignore
+tiles/Makefile export-ignore
+*.svg export-ignore
