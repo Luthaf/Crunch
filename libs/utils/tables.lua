@@ -48,6 +48,13 @@ function table.contains(table, element)
     return false
 end
 
+-- print a table to the console
+function table.print(table, element)
+    for key, value in pairs(table) do
+        print(key, value)
+    end
+end
+
 --[[
 Table serialisation and write to a file
 from http://lua-users.org/wiki/SaveTableToFile
@@ -94,7 +101,7 @@ function table.save(  tbl,filename )
      for i,v in pairs( t ) do
         -- escape handled values
         if (not thandled[i]) then
-        
+
            local str = ""
            local stype = type( i )
            -- handle index
@@ -109,7 +116,7 @@ function table.save(  tbl,filename )
            elseif stype == "number" then
               str = charS.."["..tostring( i ).."]="
            end
-        
+
            if str ~= "" then
               stype = type( v )
               -- handle value
