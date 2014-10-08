@@ -38,6 +38,6 @@ require("options")
 
 function love.load()
     gamestate.registerEvents()
-    gamestate.switch(menu)
-
+    --gamestate.switch(menu)
+    gamestate.switch(game, "template")
 end
