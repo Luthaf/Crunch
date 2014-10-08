@@ -16,27 +16,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Menu state.
 ]]
 
-function menu:enter()
-	
-end
-	
-	
-function menu:update(dt)	
-	if gui.Button({text = "Levels", pos = {300, 200}, size = {200, 50}}) 
+menu = menu or {}	
+
+function menu:update(dt)
+	if gui.Button({text = "Levels", pos = {300, 200}, size = {200, 50}})
 			then gamestate.switch(levels)
-	elseif gui.Button({text = "Credits", pos = {300, 300}, size = {200, 50}}) 
+	elseif gui.Button({text = "Credits", pos = {300, 300}, size = {200, 50}})
 			then gamestate.switch(credits)
-	elseif gui.Button({text = "Options", pos = {300, 400}, size = {200, 50}}) 
-			then gamestate.switch(options)	
-	elseif gui.Button({text = "Quit", pos = {300, 500}, size = {200, 50}}) 
-			then love.event.quit()			
+	elseif gui.Button({text = "Options", pos = {300, 400}, size = {200, 50}})
+			then gamestate.switch(options)
+	elseif gui.Button({text = "Quit", pos = {300, 500}, size = {200, 50}})
+			then love.event.quit()
 	end
 end
- 
- 
+
+
 function menu:draw()
 	love.graphics.print("Funky CRUNCH title", 300, 50)
-	gui.core.draw()	
+	gui.core.draw()
 end
 
 

@@ -49,6 +49,8 @@ local MAP_WIDTH, MAP_HEIGHT
 
 --[[ =================================== ]]
 
+game = game or {}
+
 
 function game:enter(current, map_name)
     map = sti.new("assets/maps/" .. map_name)

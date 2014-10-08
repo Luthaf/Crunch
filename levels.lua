@@ -33,6 +33,8 @@ levels state.
 local MAPS = {}
 local n_MAPS = 0
 
+levels = levels or {}
+
 function levels:enter()
     content = love.filesystem.getDirectoryItems("assets/maps")
     n_MAPS = 0
@@ -47,22 +49,22 @@ function levels:enter()
 end
 
 
-function levels:update(dt)	
+function levels:update(dt)
 	local x = 300
 	local y = 200
 	for key,map in pairs(MAPS) do
-		if gui.Button ({text = "(".. map .. ")", pos = {x, y}, size = {200, 50}}) 
+		if gui.Button ({text = "(".. map .. ")", pos = {x, y}, size = {200, 50}})
 			then gamestate.switch(game, MAPS[key])
 		end
 		y = y + 100
 	end
-	if gui.Button ({text = "Return to main menu", pos = {x, y}, size = {200, 50}}) 
+	if gui.Button ({text = "Return to main menu", pos = {x, y}, size = {200, 50}})
 		then gamestate.switch(menu)
 	end
 end
- 
- 
+
+
 function levels:draw()
 	love.graphics.print("Choose your map : ", 300, 50)
-	gui.core.draw()	
+	gui.core.draw()
 end

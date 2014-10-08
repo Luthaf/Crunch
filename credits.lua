@@ -16,14 +16,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Credits screen.
 ]]
 
-function credits:update(dt)	
-	if gui.Button ({text = "Return to main menu", pos = {300, 200}, size = {200, 50}}) 
-			then gamestate.switch(menu)	
+credits = credits or {}
+
+function credits:update(dt)
+	if gui.Button ({text = "Return to main menu", pos = {300, 200}, size = {200, 50}})
+			then gamestate.switch(menu)
 	end
 end
 
 
 function credits:draw()
 	love.graphics.print("Credits", 300, 50)
-	gui.core.draw()	
+	gui.core.draw()
 end
