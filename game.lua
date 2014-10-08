@@ -20,7 +20,7 @@ Main game state.
 local map
 
 --[[ ========== Game constants ========== ]]
-local tile_size = 64.0
+local tile_size
 
 local g = 800       -- gravity
 local X = 0         -- player position
@@ -54,13 +54,16 @@ game = game or {}
 
 function game:enter(current, map_name)
     map = sti.new("assets/maps/" .. map_name)
+    tile_size = map.tileheight
     crunch_img = love.graphics.newImage("crunch.png")
     CRUNCH_H = crunch_img:getHeight()
     CRUNCH_W = crunch_img:getWidth()
 
+    -- Initialize collisions
     local collision = map.layers["static_map"]
-    HC = Collider(tile_size, game.crunch_collide)
     local tile
+
+    HC = Collider(tile_size, game.crunch_collide)
     for j, _ in pairs(collision.data) do
         for i, _ in pairs(collision.data[j]) do
             tile = HC:addRectangle((i-1)*tile_size, (j-1)*tile_size, tile_size, tile_size)
@@ -69,10 +72,13 @@ function game:enter(current, map_name)
         end
     end
 
+    -- Initialize player
     crunch["shape"] = HC:addRectangle(X, Y, CRUNCH_W, CRUNCH_H)
     crunch["move"] = {}
     crunch.move["x"] = NONE
     crunch.move["y"] = NONE
+
+
     MAP_WIDTH = map.width * tile_size
     MAP_HEIGHT = map.height * tile_size
 end
@@ -137,6 +143,7 @@ function game:update(dt)
         crunch.move.y = YES
     end
 
+    -- Integrate Newton's equations ^^
     X = X + crunch.move.x * MAX_VX * dt
     Y = Y + VY * dt
 end
