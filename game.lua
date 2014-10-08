@@ -20,7 +20,7 @@ Main game state.
 local map
 
 --[[ ========== Game constants ========== ]]
-local tile_size = 70.0
+local tile_size = 64.0
 
 local g = 800       -- gravity
 local X = 0         -- player position
@@ -106,7 +106,6 @@ function game:draw()
     map:draw()
 
     crunch.shape:moveTo(X + CRUNCH_W/2, Y + CRUNCH_H/2)
-    -- crunch.shape:draw('fill')
 
     love.graphics.draw(crunch_img, X, Y)
 end
